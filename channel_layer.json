@@ -1,0 +1,103 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Канальный уровень",
+      "description": "API в канальном уровне",
+      "license": {
+        "name": "Apache 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+      },
+      "version": "1.0.0",
+      "contact": {
+        "name": "Valeria Kazakova",
+        "url": "https://github.com/vllxrl",
+        "email": ""
+      }
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3050",
+        "description": "Локальный сервер КУ"
+      }
+    ],
+    "paths": {
+      "/code": {
+        "post": {
+          "summary": "API отправки сегмента сообщения",
+          "description": "Этот API отправляет сегмент сообщения на обработку канальным уровнем",
+          "tags": [
+            "segments"
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/segment"
+                }
+              } 
+            }
+          },
+          "responses": {
+          "200": {
+            "description": "ОК"
+          },
+          "400": {
+            "description": "Неверный запрос"
+          },
+          "500": {
+            "description": "Внутренняя ошибка сервера"
+          }
+        }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "segment": {
+        "type": "object",
+        "required": [
+          "segment",
+          "segment_number",
+          "send_time",
+          "total_segment",
+          "username"
+        ],
+        "properties": {
+          "segment_number": {
+            "type": "integer",
+            "nullable": true,
+            "example": 1,
+            "description": "Номер сегмента"
+          },
+          "total_segments": {
+            "type": "integer",
+            "nullable": true,
+            "example": 2,
+            "description": "Общее количество сегментов сообщения"
+          },
+          "username": {
+            "type": "string",
+            "nullable": true,
+            "example": "Lera Kazakova",
+            "description": "Имя пользователя"
+          },
+          "send_time": {
+            "type": "string",
+            "nullable": true,
+            "example": "2024-03-28T15:04:05Z07:00",
+            "description": "Время отправки"
+          },
+          "payload": {
+            "type": "string",
+            "nullable": true,
+            "example": "Пример сегмента",
+            "description": "Пример сегмента"
+          }          
+        },
+        "additionalProperties": false
+      }
+      }
+    }
+  }
+  
